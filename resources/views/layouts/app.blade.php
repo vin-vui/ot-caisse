@@ -17,25 +17,16 @@
         <!-- Styles -->
         @livewireStyles
     </head>
-    <body class="font-sans antialiased">
-        @if(Session::has('message'))
-        <p style="font-weight: bold; color: white; text-align: center; background-color: #D32F2F;">{{ Session::get('message') }}</p>
-        @endif
+    <body class="font-sans antialiased bg-slate-50">
 
-        <x-banner />
-
-        <div class="min-h-screen bg-white">
+        <div class="min-h-screen">
             @livewire('navigation-menu')
-
-            <!-- Page Content -->
             <main>
                 {{ $slot }}
             </main>
         </div>
 
         @stack('modals')
-
-     
         @livewireScripts
     </body>
 </html>

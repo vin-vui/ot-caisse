@@ -10,85 +10,75 @@
             <div class="date-filters">
                 <input type="text" id="startDate" class="date-input" placeholder="Date de début">
                 <input type="text" id="endDate" class="date-input" placeholder="Date de fin">
-                <button class="border-2 rounded-md border-teal-600 bg-white text-black font-h1 font-bold p-2 hover:bg-teal-600 hover:text-white mt-4 sm:mt-0" onclick="exportTableToExcel('sale_table')">Exporter</button>
+                <button
+                    class="border-2 rounded-md border-teal-600 bg-white text-black font-h1 font-bold p-2 hover:bg-teal-600 hover:text-white mt-4 sm:mt-0"
+                    onclick="exportTableToExcel('sale_table')">Exporter</button>
             </div>
-
         </div>
     </header>
     <div class="m-4">
-
         <div class="row mt-2 font-bold">
-            <div class="col-lg-12 italic pb-4 text-black font-bold">
+            <div class="italic pb-4 text-black font-bold">
                 @if ($message = Session::get('success'))
-                <div class="alert alert-success">
-                    <p>{{ $message }}</p>
-                </div>
+                    <div class="alert alert-success">
+                        <p>{{ $message }}</p>
+                    </div>
                 @endif
             </div>
-            <div class="relative overflow-x-auto shadow-none overflow-auto p-2">
-                <table class="centered-table w-full text-sm text-left" id="sale_table">
-                    <thead class="text-black sm:text-sm uppercase dark:bg-teal-600 dark:text-white">
+            <div class="relative overflow-x-auto overflow-auto shadow-xl rounded-lg">
+                <table class="w-full text-sm text-left" id="sale_table">
+                    <thead class="sm:text-sm uppercase bg-teal-600 text-white">
                         <tr>
                             <th scope="col" class="px-6 py-3 whitespace-normal">
-                                <div>
-                                    ID
-                                </div>
+                                &nbsp;
                             </th>
                             <th scope="col" class="px-6 py-3 whitespace-normal">
-                                <div>
-                                    Article
-                                </div>
+                                Article
                             </th>
                             <th scope="col" class="px-6 py-3 whitespace-normal">
-                                <div>
-                                    Quantité
-                                </div>
+                                Quantité
                             </th>
                             <th scope="col" class="px-6 py-3 whitespace-normal">
-                                <div>
-                                    Prix
-                                </div>
+                                Prix
                             </th>
                             <th scope="col" class="px-6 py-3 whitespace-normal">
-                                <div>
-                                    Méthode de paiement
-                                </div>
+                                Méthode de paiement
                             </th>
                             <th scope="col" class="px-6 py-3 whitespace-normal">
-                                <div>
-                                    Status
-                                </div>
+                                Status
                             </th>
                             <th scope="col" class="px-6 py-3 whitespace-normal">
-                                <div>
-                                    Commentaire
-                                </div>
+                                Commentaire
                             </th>
                             <th scope="col" class="px-6 py-3 whitespace-normal">
-                                <div>
-                                    Date de création
-                                </div>
+                                Date de création
                             </th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($sales as $sell)
-                        <tr class="px-6 py-4 dark:bg-white dark:text-black rounded-md">
-                            <td scope="row" class="px-6 py-10 flex items-center dark:text-black">{{ $sell->id }}</td>
-                            <td class="px-20 py-4">{{ $sell->article->title }}</td>
-                            <td class="px-6 py-4 text-black whitespace-nowrap">
-                                {{ $sell->quantity }}
-                            </td>
-                            <td class="px-20 py-4">{{ $sell->price }}€</td>
-                            <td class="px-8 py-4">
-                                @foreach ($sell->payments as $payment)
-                                {{ $payment->method }} <br />
-                                @endforeach
-                            </td>
-                            <td class="px-4 py-4">{{ $sell->status }}</td>
-                            <td class="px-4 py-4">{{ $sell->commentary }}</td>
-                            <td class="px-4 py-4">{{ \Carbon\Carbon::parse($sell->created_at)->format('d/m/Y') }}</td>
-                        </tr>
+                            <tr class="px-6 py-4 bg-white text-black rounded-md">
+                                <td scope="row" class="px-6 py-4 flex items-center text-black">{{ $sell->id }}</td>
+                                <td class="px-6 py-4">{{ $sell->article->title }}</td>
+                                <td class="px-6 py-4 text-black whitespace-nowrap">
+                                    {{ $sell->quantity }}
+                                </td>
+                                <td class="px-6 py-4">{{ $sell->price }}€</td>
+                                <td class="px-6 py-4">
+                                    @foreach ($sell->payments as $payment)
+                                        {{ $payment->method }} <br />
+                                    @endforeach
+                                </td>
+                                <td class="px-6 py-4">
+                                @if ($sell->status == 'actif')
+                                        <span class="text-white bg-green-600 py-0.5 px-2 text-xs rounded-full">Actif</span>
+                                    @else
+                                        <span class="text-white bg-red-600 py-0.5 px-2 text-xs rounded-full">Inactif</span>
+                                    @endif
+                                </td>
+                                <td class="px-6 py-4">{{ $sell->commentary }}</td>
+                                <td class="px-6 py-4">{{ \Carbon\Carbon::parse($sell->created_at)->format('d/m/Y') }}</td>
+                            </tr>
                         @endforeach
                     </tbody>
                 </table>
@@ -119,7 +109,7 @@
     </script>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const startDateInput = document.getElementById('startDate');
             const endDateInput = document.getElementById('endDate');
 

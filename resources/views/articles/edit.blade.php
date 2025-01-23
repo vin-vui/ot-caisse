@@ -1,114 +1,24 @@
 <x-app-layout>
-        <div class="m-4 sm:m-10">
-            <div class="pb-8 flex justify-start items-center">
-                <a class="border-2 rounded-md border-teal-600 bg-white text-black hover:text-white hover:bg-teal-600 p-2 ml-2"
-                    href="{{ route('articles.index') }}">
-                    Retour</a>
-            </div>
-        <div class="row mt-2 font-paragraph">
-            <div class="col-lg-12 italic pb-4 text-black font-bold">
-                @if ($message = Session::get('success'))
-                    <div class="alert alert-success">
-                        <p>{{ $message }}</p>
-                    </div>
-                @endif
-            </div>
-            <div class="col-lg-12 text-black font-bold">
-                @if ($errors->any())
-                    <div class="alert alert-danger">
-                        Il y a un problème avec votre enregistrement.<br>
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
-
-                <form action="{{ route('articles.update', $article->id) }}" method="POST"
-                    enctype="multipart/form-data">
+    <div class="max-w-5xl mx-auto py-4 px-2 sm:px-8">
+        <div class="bg-teal-600 text-white p-2 rounded-t-xl py-4 flex items-center justify-between">
+            <span class="font-bold text-2xl font-lobster">Modifier un article</span>
+            <form action="{{ route('articles.destroy', $article) }}" method="POST" class="flex items-center justify-end gap-2">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="text-white bg-red-600 py-1 px-2 rounded-md flex items-center gap-1 hover:bg-white hover:text-red-600">
+                    <svg class="size-6" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5" d="M9.17 4a3.001 3.001 0 0 1 5.66 0m5.67 2h-17m15.333 2.5l-.46 6.9c-.177 2.654-.265 3.981-1.13 4.79s-2.196.81-4.856.81h-.774c-2.66 0-3.991 0-4.856-.81c-.865-.809-.954-2.136-1.13-4.79l-.46-6.9M9.5 11l.5 5m4.5-5l-.5 5"/></svg>
+                    Supprimer
+                </button>
+            </form>
+        </div>
+        <div class="bg-white shadow-xl p-6 rounded-b-xl font-paragraph">
+            <div class="text-black font-bold">
+                <form action="{{ route('articles.update', $article->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
-
-                    <div class="grid grid-cols-1 gap-4">
-
-                        <div class="col-xs-12 col-sm-12 col-md-12 pb-5">
-                            <label class="font-bold text-lg">Titre :</label>
-                            <div class="form-group text-black">
-                                <input type="text" name="title" value="{{ $article->title }}"
-                                    class="form-control w-full">
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-sm-12 col-md-12 pb-5">
-                            <label class="font-bold text-lg">Prix :</label>
-                            <div class="form-group text-black">
-                                <input type="number" min="0" step="0.01" name="price"
-                                    class="form-control w-full" value="{{ old('price', $article->price) }}"> 
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-sm-12 col-md-12 pb-5">
-                            <label class="font-bold text-lg">Stock :</label>
-                            <div class="form-group text-black">
-                                <input type="number" name="quantity" value="{{ $article->quantity }}"
-                                    class="form-control w-full">
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-sm-12 col-md-12 pb-5">
-                            <label class="font-bold text-lg">Alerte stock :</label>
-                            <div class="form-group text-black">
-                                <input type="number" name="quantity_alert" value="{{ $article->quantity_alert }}"
-                                    class="form-control w-full">
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-sm-12 col-md-12 pb-5">
-                            <label class="font-bold text-lg">Catégorie :</label>
-                            <select class="text-black" name="category_id">
-                                @foreach ($categories as $category)
-                                    <option value="{{ $category->id }}"
-                                        {{ $category->id == $article->category_id ? 'selected' : '' }}>
-                                        {{ $category->name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group py-2">
-                            <label class="font-bold text-lg" for="image">Image :</label>
-                            @if($article->image)
-                            <img src="{{ asset('img/' . $article->image) }}" alt="Image description" />
-                            @endif
-                            <input type="file" name="image" id="image" class="form-control-file">
-                            @if ($errors->has('image'))
-                                <span class="text-danger">{{ $errors->first('image') }}</span>
-                            @endif
-                        </div>
-                        
-                        <div class="col-xs-12 col-sm-12 col-md-12 pb-5">
-                            <label class="font-bold text-lg">Description :</label>
-                            <div class="form-group text-black">
-                                <textarea class="form-control w-full" name="description">{{ $article->description }}</textarea>
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-sm-12 col-md-12 pb-5">
-                            <label class="font-bold text-lg">Référence :</label>
-                            <div class="form-group text-black">
-                                <input type="text" name="reference" value="{{ $article->reference }}"
-                                    class="form-control w-full">
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-sm-12 col-md-12 pb-5">
-                            <label class="font-bold text-lg">Statut :</label>
-                            <select class="text-black" name="status">
-                                <option value="actif">actif</option>
-                                <option value="inactif">inactif</option>
-                            </select>
-                        </div>
-                        <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                            <button type="submit"
-                                class="border-2 rounded-md border-teal-600 bg-white text-black hover:text-white hover:bg-teal-600 p-3 px-5">Envoyer</button>
-                        </div>
-
-                    </div>
+                    @include('articles._form')
                 </form>
             </div>
         </div>
+    </div>
 </x-app-layout>

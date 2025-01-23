@@ -10,15 +10,11 @@
                     <div class="flex flex-wrap gap-2">
                         @foreach ($category->articles as $article)
                             @if ($article->status != 'inactif')
-                                <label
-                                    class="bg-white rounded-md shadow-xl hover:shadow flex items-center justify-between p-2 transition-all duration-300 hover:scale-95">
-                                    <input type="checkbox" class='rounded-xl border-2' name="selected_articles[]"
-                                        value="{{ $article->id }}">
-                                        <div class="">
-                                            <img class="h-24 w-24 object-cover {{ $article->status == 'actif' ? '' : 'grayscale' }}"
-                                                 src="{{ $article->image != null ? url('..app/public/img' . $article->image) : url('..app/public/img/andrew-small-unsplash.jpg') }}"
-                                                 alt="">
-                                        </div>
+                                <label class="bg-white rounded-md shadow-xl hover:shadow flex items-center justify-between gap-2 p-2 transition-all duration-300 hover:scale-95 cursor-pointer">
+                                    <input type="checkbox" class='rounded-xl border-2' name="selected_articles[]" value="{{ $article->id }}">
+                                    <div class="">
+                                        <img class="h-24 w-24 object-cover {{ $article->status == 'actif' ? '' : 'grayscale' }}" src="{{ $article->image != null ? url($article->image) : url('img/placeholder.jpg') }}" alt="">
+                                    </div>
                                     <div class="flex flex-col gap-1 items-center justify-center text-center">
                                         <div class="flex flex-col">
                                             <span class="font-semibold text-sm">{{ $article->title }}</span>
@@ -35,7 +31,7 @@
             @endforeach
         </div>
         <div class="text-center mt-8 mflex items-center">
-            <button type="submit" class="font-match border-2 border-emerald-300 text-black  rounded-md hover:bg-emerald-300 p-2">
+            <button type="submit" class="border-2 rounded-md border-teal-600 bg-white hover:bg-teal-600 hover:text-white text-gray-800 p-3 px-5">
                 Valider la sélection
             </button>
         </div>
