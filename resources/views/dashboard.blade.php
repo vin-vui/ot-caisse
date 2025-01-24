@@ -4,7 +4,7 @@
         <div class="max-w-none mx-auto gap-4 space-y-1 font-paragraph">
             @foreach ($categories as $category)
                 <div class="flex flex-col md:flex-row items-center p-2 gap-4" style="background-color: {{ $category->color }}">
-                    <div class="font-semibold text-xl">
+                    <div class="font-semibold text-xl bg-white py-1 px-2 rounded-md shadow-xl">
                         {{ $category->name }}
                     </div>
                     <div class="flex flex-wrap gap-2">

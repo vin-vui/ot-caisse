@@ -91,8 +91,8 @@ class ArticleController extends Controller
         $validData = $request->validate($this->rules());
 
         if ($request->image != null) {
-            $path = Storage::putFileAs('img', $request->image, Str::slug($validData['title'], '_').'.'.$request->image->extension());
-            $validData["image"] = $path;
+            $path = $request->file('image')->storeAs('img', Str::slug($validData['title'], '_').'.'.$request->image->extension(), 'public');
+            $validData["image"] = 'storage/' . $path;
         }
 
         $article->update($validData);

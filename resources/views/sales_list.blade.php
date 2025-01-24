@@ -2,7 +2,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
-    <header class="bg-white">
+    <header class="bg-white sticky top-0 z-50 shadow-lg">
         <div class="max-w-7xl mx-auto py-4 px-2 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between">
             <h2 class="font-h1 text-4xl font-bold text-teal-600 leading-tight">
                 Ventes
@@ -12,11 +12,13 @@
                 <input type="text" id="endDate" class="date-input" placeholder="Date de fin">
                 <button
                     class="border-2 rounded-md border-teal-600 bg-white text-black font-h1 font-bold p-2 hover:bg-teal-600 hover:text-white mt-4 sm:mt-0"
-                    onclick="exportTableToExcel('sale_table')">Exporter</button>
+                    onclick="exportTableToExcel('sale_table')">
+                    Exporter
+                </button>
             </div>
         </div>
     </header>
-    <div class="m-4">
+    <div class="mx-auto px-2 sm:px-6">
         <div class="row mt-2 font-bold">
             <div class="italic pb-4 text-black font-bold">
                 @if ($message = Session::get('success'))
@@ -35,22 +37,22 @@
                             <th scope="col" class="px-6 py-3 whitespace-normal">
                                 Article
                             </th>
-                            <th scope="col" class="px-6 py-3 whitespace-normal">
+                            <th scope="col" class="px-6 py-3 whitespace-normal text-center">
                                 Quantité
                             </th>
-                            <th scope="col" class="px-6 py-3 whitespace-normal">
+                            <th scope="col" class="px-6 py-3 whitespace-normal text-center">
                                 Prix
                             </th>
-                            <th scope="col" class="px-6 py-3 whitespace-normal">
+                            <th scope="col" class="px-6 py-3 whitespace-normal text-center">
                                 Méthode de paiement
                             </th>
-                            <th scope="col" class="px-6 py-3 whitespace-normal">
+                            <th scope="col" class="px-6 py-3 whitespace-normal text-center">
                                 Status
                             </th>
                             <th scope="col" class="px-6 py-3 whitespace-normal">
                                 Commentaire
                             </th>
-                            <th scope="col" class="px-6 py-3 whitespace-normal">
+                            <th scope="col" class="px-6 py-3 whitespace-normal text-center">
                                 Date de création
                             </th>
                         </tr>
@@ -60,24 +62,26 @@
                             <tr class="px-6 py-4 bg-white text-black rounded-md">
                                 <td scope="row" class="px-6 py-4 flex items-center text-black">{{ $sell->id }}</td>
                                 <td class="px-6 py-4">{{ $sell->article->title }}</td>
-                                <td class="px-6 py-4 text-black whitespace-nowrap">
-                                    {{ $sell->quantity }}
+                                <td class="px-6 py-4 text-black whitespace-nowrap text-center">
+                                    <span class="bg-gray-50 py-0.5 px-1 rounded-full">{{ $sell->quantity }}</span>
                                 </td>
-                                <td class="px-6 py-4">{{ $sell->price }}€</td>
-                                <td class="px-6 py-4">
+                                <td class="px-6 py-4 text-center">{{ $sell->price }}€</td>
+                                <td class="px-6 py-4 text-center">
+                                    @php $paymentMethods = 0; @endphp
                                     @foreach ($sell->payments as $payment)
-                                        {{ $payment->method }} <br />
+                                    @if($paymentMethods > 0) + @endif <span class="bg-blue-50 py-0.5 px-1 rounded-full">{{ $payment->method }}</span>
+                                    @php $paymentMethods++; @endphp
                                     @endforeach
                                 </td>
-                                <td class="px-6 py-4">
-                                @if ($sell->status == 'actif')
+                                <td class="px-6 py-4 text-center">
+                                    @if ($sell->status == 'active')
                                         <span class="text-white bg-green-600 py-0.5 px-2 text-xs rounded-full">Actif</span>
                                     @else
                                         <span class="text-white bg-red-600 py-0.5 px-2 text-xs rounded-full">Inactif</span>
                                     @endif
                                 </td>
                                 <td class="px-6 py-4">{{ $sell->commentary }}</td>
-                                <td class="px-6 py-4">{{ \Carbon\Carbon::parse($sell->created_at)->format('d/m/Y') }}</td>
+                                <td class="px-6 py-4 text-center">{{ \Carbon\Carbon::parse($sell->created_at)->format('d/m/Y') }}</td>
                             </tr>
                         @endforeach
                     </tbody>
