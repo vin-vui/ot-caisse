@@ -61,7 +61,7 @@
                         @foreach ($sales as $sell)
                             <tr class="px-6 py-4 bg-white text-black rounded-md">
                                 <td scope="row" class="px-6 py-4 flex items-center text-black">{{ $sell->id }}</td>
-                                <td class="px-6 py-4">{{ $sell->article->title }}</td>
+                                <td class="px-6 py-4">{{ $sell->article?->title ?? 'NA' }}</td>
                                 <td class="px-6 py-4 text-black whitespace-nowrap text-center">
                                     <span class="bg-gray-50 py-0.5 px-1 rounded-full">{{ $sell->quantity }}</span>
                                 </td>
