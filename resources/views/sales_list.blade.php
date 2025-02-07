@@ -104,15 +104,10 @@
             /* Génère le fichier XLSX et le télécharge */
             XLSX.writeFile(wb, filename ? filename : 'export.xlsx');
         }
-    </script>
-
-
-    <script>
+        
         flatpickr("#startDate", {});
         flatpickr("#endDate", {});
-    </script>
 
-    <script>
         document.addEventListener('DOMContentLoaded', function () {
             const startDateInput = document.getElementById('startDate');
             const endDateInput = document.getElementById('endDate');
@@ -142,6 +137,5 @@
             endDateInput.addEventListener('change', filterTable);
         });
     </script>
-
 
 </x-app-layout>
