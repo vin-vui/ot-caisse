@@ -17,7 +17,7 @@
                             <th scope="col" class="px-6 py-3 whitespace-nowrap">
                                 Titre
                             </th>
-                            <th scope="col" class="px-6 py-3 whitespace-nowrap">
+                            <th scope="col" class="px-6 py-3 whitespace-nowrap text-right">
                                 Prix
                             </th>
                             <th scope="col" class="px-6 py-3 whitespace-nowrap text-center">
@@ -53,8 +53,8 @@
                                 <td scope="row" class="px-6 py-3">
                                     {{ $article->title }}
                                 </td>
-                                <td class="px-6 py-3 text-black whitespace-nowrap">
-                                    {{ $article->price }} €
+                                <td class="px-6 py-3 text-black whitespace-nowrap text-right">
+                                    {{ number_format($article->price, 2, '.', '') }} €
                                 </td>
                                 <td class="px-6 py-3 text-center">
                                     @if ($article->quantity <= $article->quantity_alert)

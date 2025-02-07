@@ -35,9 +35,6 @@
                         <div class="text-red-500 mt-2 text-sm">{{ $message }}</div>
                     @enderror
                 </div>
-                <!-- <div class="flex justify-end">
-                    <a href="{{ route('password.request') }}" class="text-sm text-purple-700 hover:text-purple-00 hover:underline mb-6">Mot de passe oublié ?</a>
-                </div> -->
                 <button class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 rounded shadow-lg hover:shadow-xl transition duration-200" type="submit">Se connecter</button>
             </form>
         </section>

@@ -1,5 +1,5 @@
 <x-app-layout>
-    <form method="POST" action="{{ route('addtocart') }}" id="addToCartForm">
+    <form method="POST" action="{{ route('addtocart') }}" id="addToCartForm" class="w-full">
         @csrf
         <div class="max-w-none mx-auto gap-4 space-y-1 font-paragraph">
             @foreach ($categories as $category)
@@ -19,8 +19,8 @@
                                         <div class="flex flex-col">
                                             <span class="font-semibold text-sm">{{ $article->title }}</span>
                                         </div>
-                                        <div class="text-sm -mb-1">
-                                            {{ $article->price }} €
+                                        <div class="text-sm -mb-1 bg-gray-50 py-0.5 px-1.5 rounded-full">
+                                            {{ number_format($article->price, 2, '.', '') }} €
                                         </div>
                                     </div>
                                 </label>
@@ -30,8 +30,8 @@
                 </div>
             @endforeach
         </div>
-        <div class="text-center mt-8 mflex items-center">
-            <button type="submit" class="border-2 rounded-md border-teal-600 bg-white hover:bg-teal-600 hover:text-white text-gray-800 p-3 px-5">
+        <div class="mt-8 flex justify-center items-center">
+            <button type="submit" class="border-2 rounded-md border-teal-600 bg-white hover:bg-teal-600 hover:text-white text-gray-800 shadow-lg p-3 px-5">
                 Valider la sélection
             </button>
         </div>

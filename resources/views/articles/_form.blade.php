@@ -17,7 +17,7 @@
                 <span class="ml-2 text-xs text-red-500">{{ $message }}</span>
                 @enderror
             </label>
-            <input type="number" min="0" step="0.01" value="0.00" name="price" class="w-full" value="{{ old('price', $article->price ?? null) }}">
+            <input type="number" min="0" step="0.01" name="price" class="w-full" value="{{ number_format(old('price', $article->price ?? 0), 2, '.', '') }}">
         </div>
         <div class="w-full">
             <label class="font-bold text-lg">Référence</label>
